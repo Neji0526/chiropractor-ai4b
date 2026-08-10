@@ -99,6 +99,9 @@ export function LeadForm({
 
   const fieldId = (name: string) => `${uid}-${name}`;
   const errors = state.fieldErrors;
+  // React resets the form once the action settles, so every field's
+  // `defaultValue` has to carry the last submitted value back in.
+  const previous = state.values;
 
   if (state.status === "success") {
     return (
@@ -160,6 +163,7 @@ export function LeadForm({
           label="Full name"
           autoComplete="name"
           required
+          defaultValue={previous.name ?? ""}
           error={errors.name}
           className="sm:col-span-2"
         />
@@ -172,6 +176,7 @@ export function LeadForm({
           autoComplete="tel"
           inputMode="tel"
           required
+          defaultValue={previous.phone ?? ""}
           error={errors.phone}
         />
 
@@ -183,14 +188,18 @@ export function LeadForm({
           autoComplete="email"
           inputMode="email"
           required
+          defaultValue={previous.email ?? ""}
           error={errors.email}
         />
 
+        {/* Keyed on the echoed value: a `<select>` only picks up `defaultValue` at
+            mount, so it needs a fresh element to show the value back after a reset. */}
         <SelectField
+          key={`service-${previous.serviceSlug ?? "default"}`}
           id={fieldId("serviceSlug")}
           name="serviceSlug"
           label="What can we help with?"
-          defaultValue={defaultServiceSlug ?? "not-sure"}
+          defaultValue={previous.serviceSlug ?? defaultServiceSlug ?? "not-sure"}
           error={errors.serviceSlug}
           options={[
             { value: "not-sure", label: "I'm not sure yet" },
@@ -202,10 +211,11 @@ export function LeadForm({
         />
 
         <SelectField
+          key={`contact-${previous.preferredContactMethod ?? "default"}`}
           id={fieldId("preferredContactMethod")}
           name="preferredContactMethod"
           label="How should we reply?"
-          defaultValue="phone"
+          defaultValue={previous.preferredContactMethod ?? "phone"}
           required
           error={errors.preferredContactMethod}
           options={PREFERRED_CONTACT_METHODS.map((method) => ({
@@ -226,6 +236,7 @@ export function LeadForm({
           error={errors.message}
           rows={4}
           maxLength={1500}
+          defaultValue={previous.message ?? ""}
           className="sm:col-span-2"
         />
       </div>
@@ -241,6 +252,7 @@ export function LeadForm({
             name="consent"
             type="checkbox"
             required
+            defaultChecked={previous.consent === "on"}
             aria-invalid={errors.consent ? true : undefined}
             aria-describedby={errors.consent ? `${fieldId("consent")}-error` : undefined}
             className="mt-0.5 size-4.5 shrink-0 rounded border-shell-400 text-brand-600 accent-brand-600"
@@ -254,12 +266,33 @@ export function LeadForm({
         ) : null}
       </div>
 
-      {/* Hidden tracking fields, populated on the client. */}
+      {/* Hidden tracking fields. Populated on mount, and re-seeded from the
+          echoed state so a validation error doesn't lose the attribution. */}
       <input type="hidden" name="sourcePage" value={pathname} />
-      <input ref={utmRefs.source} type="hidden" name="utmSource" defaultValue="" />
-      <input ref={utmRefs.medium} type="hidden" name="utmMedium" defaultValue="" />
-      <input ref={utmRefs.campaign} type="hidden" name="utmCampaign" defaultValue="" />
-      <input ref={renderedAtRef} type="hidden" name="renderedAt" defaultValue="" />
+      <input
+        ref={utmRefs.source}
+        type="hidden"
+        name="utmSource"
+        defaultValue={previous.utmSource ?? ""}
+      />
+      <input
+        ref={utmRefs.medium}
+        type="hidden"
+        name="utmMedium"
+        defaultValue={previous.utmMedium ?? ""}
+      />
+      <input
+        ref={utmRefs.campaign}
+        type="hidden"
+        name="utmCampaign"
+        defaultValue={previous.utmCampaign ?? ""}
+      />
+      <input
+        ref={renderedAtRef}
+        type="hidden"
+        name="renderedAt"
+        defaultValue={previous.renderedAt ?? ""}
+      />
 
       {/* Honeypot: positioned off-screen rather than display:none, which some bots skip. */}
       <div aria-hidden className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden">

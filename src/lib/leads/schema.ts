@@ -92,10 +92,20 @@ export type LeadFormState = {
   message: string;
   /** Field-level messages keyed by input name. */
   fieldErrors: Partial<Record<keyof LeadInput, string>>;
+  /**
+   * The submitted values, echoed back so the form can repopulate itself.
+   *
+   * React 19 resets an uncontrolled `<form action={…}>` once the action
+   * completes, which would otherwise wipe what the visitor typed the moment
+   * validation fails — and clear the hidden tracking fields with it. Feeding
+   * these back in as `defaultValue` is the supported way to keep them.
+   */
+  values: Partial<Record<keyof LeadInput, string>>;
 };
 
 export const initialLeadFormState: LeadFormState = {
   status: "idle",
   message: "",
   fieldErrors: {},
+  values: {},
 };

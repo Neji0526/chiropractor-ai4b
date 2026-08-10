@@ -99,7 +99,9 @@ export default async function BlogPostPage({ params }: PageProps) {
                     image={author.photo}
                     name={author.name}
                     ratio="aspect-square"
-                    className="size-9"
+                    initials="sm"
+                    className="size-9 rounded-full"
+                    sizes="36px"
                   />
                   <span>
                     <Link

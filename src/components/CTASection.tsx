@@ -1,6 +1,7 @@
 import type { SiteSettings } from "@/content/types";
 import { ButtonLink } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
+import { cn } from "@/lib/cn";
 
 /**
  * Closing call to action. Used at the foot of most pages, with copy tailored to
@@ -50,18 +51,19 @@ export function CTASection({
               size="lg"
               icon="calendar"
               variant={onDark ? "secondary" : "primary"}
-              className={onDark ? "border-transparent" : undefined}
+              className={cn("whitespace-nowrap", onDark && "border-transparent")}
             >
               {settings.primaryCtaLabel}
             </ButtonLink>
 
             <a
               href={`tel:${settings.phoneHref}`}
-              className={
+              className={cn(
+                "inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-base font-medium whitespace-nowrap transition-colors",
                 onDark
-                  ? "inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-white/10"
-                  : "inline-flex items-center justify-center gap-2 rounded-full border border-brand-200 px-6 py-3 text-base font-medium text-brand-700 transition-colors hover:bg-brand-50"
-              }
+                  ? "border-white/40 text-white hover:bg-white/10"
+                  : "border-brand-200 text-brand-700 hover:bg-brand-50",
+              )}
             >
               <Icon name="phone" size={18} />
               {settings.phone}

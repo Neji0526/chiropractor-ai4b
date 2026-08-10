@@ -78,6 +78,8 @@ interface AvatarProps {
   className?: string;
   sizes?: string;
   ratio?: string;
+  /** Scale of the initials fallback — "sm" suits inline bylines. */
+  initials?: "sm" | "lg";
 }
 
 /** Practitioner photo, falling back to initials on a soft brand tint. */
@@ -87,6 +89,7 @@ export function Avatar({
   className,
   sizes = "(min-width: 768px) 20rem, 100vw",
   ratio = "aspect-[4/5]",
+  initials: initialsSize = "lg",
 }: AvatarProps) {
   if (image) {
     return (
@@ -105,14 +108,17 @@ export function Avatar({
   return (
     <div
       className={cn(
-        "flex items-center justify-center rounded-card border border-brand-100 bg-brand-50",
+        "flex items-center justify-center overflow-hidden rounded-card border border-brand-100 bg-brand-50",
         ratio,
         className,
       )}
     >
       <span
         aria-hidden
-        className="font-serif text-4xl font-semibold text-brand-500"
+        className={cn(
+          "font-serif font-semibold text-brand-500",
+          initialsSize === "sm" ? "text-xs tracking-tight" : "text-4xl",
+        )}
       >
         {initials(name)}
       </span>

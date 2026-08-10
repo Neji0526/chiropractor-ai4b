@@ -31,6 +31,8 @@ export async function submitLead(
   _prevState: LeadFormState,
   formData: FormData,
 ): Promise<LeadFormState> {
+  const submitted = echoValues(formData);
+
   const parsed = leadSchema.safeParse({
     name: formData.get("name") ?? "",
     email: formData.get("email") ?? "",
@@ -60,6 +62,7 @@ export async function submitLead(
       status: "error",
       message: "Please check the highlighted fields and try again.",
       fieldErrors: firstErrors,
+      values: submitted,
     };
   }
 
@@ -73,7 +76,7 @@ export async function submitLead(
     Number.isFinite(renderedAt) && renderedAt > 0 && now - renderedAt < MIN_FILL_MS;
 
   if (lead.companyWebsite.trim() !== "" || filledTooFast) {
-    return successState(lead);
+    return successState(lead, submitted);
   }
 
   const requestHeaders = await headers();
@@ -88,15 +91,19 @@ export async function submitLead(
       message:
         "We've had a few submissions from your connection already. Please call the clinic on (555) 010-2400 and we'll help you straight away.",
       fieldErrors: {},
+      values: submitted,
     };
   }
 
   await recordLead(lead, now);
 
-  return successState(lead);
+  return successState(lead, submitted);
 }
 
-function successState(lead: LeadInput): LeadFormState {
+function successState(
+  lead: LeadInput,
+  values: LeadFormState["values"],
+): LeadFormState {
   const firstName = lead.name.split(/\s+/)[0] ?? "";
   return {
     status: "success",
@@ -104,7 +111,33 @@ function successState(lead: LeadInput): LeadFormState {
       ? `Thanks ${firstName} — your request has been sent.`
       : "Thanks — your request has been sent.",
     fieldErrors: {},
+    values,
   };
+}
+
+/** The submitted strings, so the form can restore itself after React resets it. */
+function echoValues(formData: FormData): LeadFormState["values"] {
+  const keys = [
+    "name",
+    "email",
+    "phone",
+    "serviceSlug",
+    "preferredContactMethod",
+    "message",
+    "consent",
+    "sourcePage",
+    "utmSource",
+    "utmMedium",
+    "utmCampaign",
+    "renderedAt",
+  ] as const;
+
+  const values: LeadFormState["values"] = {};
+  for (const key of keys) {
+    const value = formData.get(key);
+    if (typeof value === "string") values[key] = value;
+  }
+  return values;
 }
 
 /**

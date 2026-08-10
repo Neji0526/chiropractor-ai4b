@@ -88,7 +88,7 @@ export default async function ServicePage({ params }: PageProps) {
 
       {/* Intro + inline booking form: the answer and the action on one screen. */}
       <section className="border-b border-shell-200 bg-white">
-        <div className="container-page grid gap-10 py-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:py-16">
+        <div className="container-page grid items-start gap-10 py-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:py-16">
           <div>
             <p className="text-xs font-semibold tracking-[0.14em] text-brand-600 uppercase">
               Service
@@ -136,7 +136,7 @@ export default async function ServicePage({ params }: PageProps) {
 
           <MediaPanel
             image={service.featuredImage}
-            ratio="aspect-[4/3] lg:aspect-[4/5]"
+            ratio="aspect-[4/3] lg:aspect-[5/4]"
             placeholderLabel={`Photo — ${service.title}`}
             priority
             sizes="(min-width: 1024px) 40vw, 100vw"
