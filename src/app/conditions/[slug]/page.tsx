@@ -8,6 +8,7 @@ import { WhatToExpect } from "@/components/WhatToExpect";
 import { ServiceCard } from "@/components/cards";
 import { ButtonLink } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
+import { MediaPanel } from "@/components/ui/MediaPanel";
 import { SectionHeading } from "@/components/ui/Section";
 import {
   getCondition,
@@ -87,16 +88,29 @@ export default async function ConditionPage({ params }: PageProps) {
 
       <section className="py-14 lg:py-20">
         <div className="container-page grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
-          <div className="prose-clinic">
-            {condition.body.map((paragraph) => (
-              <p key={paragraph.slice(0, 40)}>{paragraph}</p>
-            ))}
+          <div>
+            {condition.featuredImage ? (
+              <MediaPanel
+                image={condition.featuredImage}
+                ratio="aspect-[16/10]"
+                rounded="rounded-xl"
+                className="mb-8"
+                sizes="(min-width: 1024px) 44rem, 100vw"
+                priority
+              />
+            ) : null}
+
+            <div className="prose-clinic">
+              {condition.body.map((paragraph) => (
+                <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+              ))}
+            </div>
           </div>
 
           <aside className="space-y-6">
             {condition.commonSigns.length > 0 ? (
               <div className="rounded-card border border-shell-200 bg-white p-6 shadow-card">
-                <h2 className="text-base font-semibold">
+                <h2 className="font-sans text-base font-semibold">
                   What people often describe
                 </h2>
                 <ul className="mt-4 space-y-3">
@@ -119,7 +133,7 @@ export default async function ConditionPage({ params }: PageProps) {
 
             {relatedServices.length > 0 ? (
               <div className="rounded-card border border-shell-200 bg-shell-50 p-6">
-                <h2 className="text-base font-semibold">Services that may apply</h2>
+                <h2 className="font-sans text-base font-semibold">Services that may apply</h2>
                 <ul className="mt-3 space-y-2">
                   {relatedServices.map((service) => (
                     <li key={service.slug}>

@@ -3,20 +3,21 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { Icon, type IconName } from "./Icon";
 
-type Variant = "primary" | "secondary" | "ghost" | "onDark";
+type Variant = "primary" | "secondary" | "ghost" | "onDark" | "onDarkSolid";
 type Size = "sm" | "md" | "lg";
 
 const BASE =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60";
+  "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60";
 
 const VARIANTS: Record<Variant, string> = {
-  primary:
-    "bg-brand-600 text-white shadow-sm hover:bg-brand-700 active:bg-brand-800",
+  primary: "bg-brand-800 text-white shadow-sm hover:bg-brand-900 active:bg-brand-900",
   secondary:
-    "border border-brand-200 bg-white text-brand-700 hover:border-brand-300 hover:bg-brand-50",
-  ghost: "text-brand-700 hover:bg-brand-50",
-  onDark:
-    "border border-white/40 bg-white/10 text-white hover:border-white/70 hover:bg-white/20",
+    "border border-shell-300 bg-white text-ink-800 hover:border-brand-300 hover:text-brand-700",
+  ghost: "text-brand-600 hover:bg-brand-50",
+  /** Outlined, for use on the navy CTA band. */
+  onDark: "border border-white/45 text-white hover:border-white hover:bg-white/10",
+  /** Solid white, the primary action on the navy CTA band. */
+  onDarkSolid: "bg-white text-brand-800 hover:bg-brand-50",
 };
 
 const SIZES: Record<Size, string> = {

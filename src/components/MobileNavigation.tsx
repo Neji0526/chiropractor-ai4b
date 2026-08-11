@@ -59,7 +59,7 @@ export function MobileNavigation({
         onClick={() => setOpen(true)}
         aria-expanded={open}
         aria-controls="mobile-navigation"
-        className="inline-flex items-center gap-2 rounded-full border border-shell-300 bg-white px-3 py-2 text-sm font-medium text-ink-700 sm:px-3.5 xl:hidden"
+        className="inline-flex items-center gap-2 rounded-lg border border-shell-300 bg-white px-3 py-2 text-sm font-medium text-ink-700 sm:px-3.5 xl:hidden"
       >
         <Icon name="menu" size={18} title="Open menu" />
         {/* Label drops below 640px, where header space is tightest. */}
@@ -122,14 +122,14 @@ export function MobileNavigation({
             <div className="space-y-2 border-t border-shell-200 px-4 py-4">
               <Link
                 href="/request-appointment"
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-brand-600 px-5 py-3 text-base font-medium text-white"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-800 px-5 py-3 text-base font-medium text-white"
               >
                 <Icon name="calendar" size={18} />
                 {primaryCtaLabel}
               </Link>
               <a
                 href={`tel:${phoneHref}`}
-                className="flex w-full items-center justify-center gap-2 rounded-full border border-brand-200 px-5 py-3 text-base font-medium text-brand-700"
+                className="flex w-full items-center justify-center gap-2 rounded-lg border border-shell-300 px-5 py-3 text-base font-medium text-ink-800"
               >
                 <Icon name="phone" size={18} />
                 {phone}

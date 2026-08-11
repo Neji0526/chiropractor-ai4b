@@ -21,7 +21,7 @@ Then point the content record at the file. For example, in `src/content/practiti
 ```ts
 photo: {
   src: "/images/team/alex-moreno.jpg",
-  alt: "Dr. Alex Moreno, chiropractor at Northside Family Chiropractic",
+  alt: "Dr. Alex Moreno, chiropractor at Northstar Family Chiropractic",
   width: 1200,
   height: 1500,
 },

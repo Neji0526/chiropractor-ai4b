@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CTASection } from "@/components/CTASection";
 import { PageHeader } from "@/components/PageHeader";
 import { PractitionerCard } from "@/components/cards";
+import { MediaPanel } from "@/components/ui/MediaPanel";
 import { getPractitioners, getSiteSettings } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 
@@ -33,6 +34,21 @@ export default async function TeamPage() {
         title="The chiropractors you'll see"
         description="You can ask for a particular practitioner when you book. If you'd rather we matched you to whoever has the most relevant experience, say so in your request and we'll do that."
       />
+
+      {/* A photo of the clinic rather than of the team: the cards below use
+          initials on purpose, because a stock portrait must never stand in for a
+          named clinician. Swap both once real photography exists. */}
+      {settings.photos.team ? (
+        <div className="container-page pt-10 lg:pt-14">
+          <MediaPanel
+            image={settings.photos.team}
+            ratio="aspect-[16/9] lg:aspect-[21/9]"
+            rounded="rounded-xl"
+            sizes="(min-width: 1280px) 72rem, 100vw"
+            placeholderLabel="Photo of the clinic"
+          />
+        </div>
+      ) : null}
 
       <section className="py-14 lg:py-20">
         <div className="container-page">

@@ -126,7 +126,7 @@ export default async function PractitionerPage({ params }: PageProps) {
                 key={group.heading}
                 className="rounded-card border border-shell-200 bg-white p-6 shadow-card"
               >
-                <h2 className="text-base font-semibold">{group.heading}</h2>
+                <h2 className="font-sans text-base font-semibold">{group.heading}</h2>
                 <ul className="mt-4 space-y-2.5">
                   {group.items.map((item) => (
                     <li

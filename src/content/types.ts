@@ -18,9 +18,20 @@ export type ImageRef = {
   height: number;
 } | null;
 
+/** Icon shown on a service card. Maps to a glyph in `components/ui/Icon`. */
+export type ServiceIcon =
+  | "spine"
+  | "back"
+  | "neck"
+  | "activity"
+  | "posture"
+  | "headache"
+  | "heart";
+
 export interface Service {
   slug: string;
   title: string;
+  icon: ServiceIcon;
   /** One sentence, used on cards and in meta descriptions. */
   shortDescription: string;
   /** Longer explanation, rendered as paragraphs. */
@@ -145,6 +156,8 @@ export interface BusinessHours {
 export interface SiteSettings {
   clinicName: string;
   legalName: string;
+  /** Short line under the wordmark in the header and footer. */
+  logoTagline: string;
   tagline: string;
   shortDescription: string;
   phone: string;
@@ -153,6 +166,27 @@ export interface SiteSettings {
   email: string;
   primaryCtaLabel: string;
   secondaryCtaLabel: string;
+  /** Pill above the homepage headline. Set to "" to hide it. */
+  heroBadge: string;
+  /** Homepage hero copy and photo. */
+  hero: {
+    heading: string;
+    body: string;
+    image: ImageRef;
+  };
+  /** Photo beside the "who we help" conditions list. */
+  whoWeHelpImage: ImageRef;
+  /** Photos used on pages that aren't driven by a CMS record of their own. */
+  photos: {
+    /** About page, "how we work" section. */
+    about: ImageRef;
+    /** Team page banner. */
+    team: ImageRef;
+  };
+  /** Offer card overlapping the hero image. Set to `null` to hide the card. */
+  newPatientOffer: NewPatientOffer | null;
+  /** Reasons the clinic is a good choice, listed on the homepage and About page. */
+  whyChooseUs: string[];
   /** Short, factual reassurances shown in the trust bar. Keep these verifiable. */
   trustPoints: TrustPoint[];
   whatToExpect: ExpectationStep[];
@@ -168,18 +202,36 @@ export interface SiteSettings {
   formConsentText: string;
 }
 
+export interface NewPatientOffer {
+  label: string;
+  /** Formatted price, e.g. "$49". */
+  price: string;
+  description: string;
+  /** Small print under the price. Set to "" to hide it. */
+  note: string;
+}
+
 export interface TrustPoint {
   label: string;
   description: string;
   icon: TrustIcon;
 }
 
-export type TrustIcon = "clock" | "map" | "phone" | "shield" | "heart" | "users";
+export type TrustIcon =
+  | "clock"
+  | "map"
+  | "phone"
+  | "shield"
+  | "heart"
+  | "users"
+  | "sparkle"
+  | "sliders";
 
 export interface ExpectationStep {
   step: number;
   title: string;
   description: string;
+  icon: TrustIcon | "notes" | "check" | "calendar";
 }
 
 export interface SocialLink {

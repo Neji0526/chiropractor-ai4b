@@ -97,12 +97,12 @@ export default async function RequestAppointmentPage() {
             </div>
 
             <div className="rounded-card border border-shell-200 bg-white p-6 shadow-card">
-              <h2 className="text-base font-semibold">Opening hours</h2>
+              <h2 className="font-sans text-base font-semibold">Opening hours</h2>
               <BusinessHours hours={location.hours} className="mt-3" />
             </div>
 
             <div className="rounded-card border border-shell-200 bg-shell-50 p-6">
-              <h2 className="text-base font-semibold">Where we are</h2>
+              <h2 className="font-sans text-base font-semibold">Where we are</h2>
               <address className="mt-2 text-sm leading-relaxed text-ink-600 not-italic">
                 {formatAddress(location)}
               </address>

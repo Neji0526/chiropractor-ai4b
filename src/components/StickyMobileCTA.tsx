@@ -26,7 +26,7 @@ export function StickyMobileCTA({
       <div className="grid grid-cols-2 gap-2 px-3 py-2.5">
         <a
           href={`tel:${phoneHref}`}
-          className="flex items-center justify-center gap-2 rounded-full border border-brand-200 py-2.5 text-[0.9375rem] font-medium text-brand-700"
+          className="flex items-center justify-center gap-2 rounded-lg border border-shell-300 py-2.5 text-[0.9375rem] font-medium text-ink-800"
         >
           <Icon name="phone" size={17} />
           Call
@@ -34,7 +34,7 @@ export function StickyMobileCTA({
         </a>
         <Link
           href="/request-appointment"
-          className="flex items-center justify-center gap-2 rounded-full bg-brand-600 py-2.5 text-[0.9375rem] font-medium text-white"
+          className="flex items-center justify-center gap-2 rounded-lg bg-brand-800 py-2.5 text-[0.9375rem] font-medium text-white"
         >
           <Icon name="calendar" size={17} />
           Book

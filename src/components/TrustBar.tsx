@@ -8,6 +8,8 @@ const ICONS: Record<TrustPoint["icon"], IconName> = {
   shield: "shield",
   heart: "heart",
   users: "users",
+  sparkle: "sparkle",
+  sliders: "sliders",
 };
 
 /**
@@ -24,7 +26,7 @@ export function TrustBar({ points }: { points: TrustPoint[] }) {
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {points.map((point) => (
             <li key={point.label} className="flex items-start gap-3">
-              <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full bg-white text-brand-600 shadow-sm">
+              <span aria-hidden className="icon-tile mt-0.5 size-9 shrink-0 bg-white">
                 <Icon name={ICONS[point.icon]} size={18} />
               </span>
               <span>

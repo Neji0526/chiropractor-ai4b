@@ -1,28 +1,22 @@
-import Link from "next/link";
 import { CTASection } from "@/components/CTASection";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { Hero } from "@/components/Hero";
-import { LocationSection } from "@/components/LocationSection";
-import { TrustBar } from "@/components/TrustBar";
 import { WhatToExpect } from "@/components/WhatToExpect";
+import { WhoWeHelp } from "@/components/WhoWeHelp";
 import {
-  BlogCard,
-  ConditionCard,
+  BlogCardWide,
   PractitionerCard,
   ServiceCard,
   TestimonialCard,
 } from "@/components/cards";
 import { ButtonLink } from "@/components/ui/Button";
-import { Icon } from "@/components/ui/Icon";
 import { JsonLd } from "@/components/ui/JsonLd";
-import { MediaPanel } from "@/components/ui/MediaPanel";
 import { SectionHeading } from "@/components/ui/Section";
 import {
   getBlogPosts,
   getConditions,
   getFeaturedTestimonials,
   getPractitioners,
-  getPrimaryLocation,
   getServices,
   getSiteSettings,
   getTopFaqs,
@@ -32,14 +26,16 @@ import { faqSchema } from "@/lib/structured-data";
 /**
  * Homepage.
  *
- * Section order follows the conversion path in the brief:
- * hero → trust → services → conditions → practitioners → what to expect →
- * testimonials → FAQ → location → final CTA.
+ * Section order follows the approved design:
+ * hero → services → who we help → team → how it works → reviews → FAQ →
+ * resources → closing CTA.
+ *
+ * The design has no location/map band here — the clinic's address, hours and
+ * phone sit in the footer on every page, and in full on /contact.
  */
 export default async function HomePage() {
   const [
     settings,
-    location,
     services,
     conditions,
     practitioners,
@@ -48,7 +44,6 @@ export default async function HomePage() {
     posts,
   ] = await Promise.all([
     getSiteSettings(),
-    getPrimaryLocation(),
     getServices(),
     getConditions(),
     getPractitioners(),
@@ -57,30 +52,27 @@ export default async function HomePage() {
     getBlogPosts(),
   ]);
 
-  const quickLinks = services.slice(0, 4).map(({ slug, title }) => ({ slug, title }));
   const recentPosts = posts.slice(0, 3);
 
   return (
     <>
-      <Hero settings={settings} location={location} quickLinks={quickLinks} />
-
-      <TrustBar points={settings.trustPoints} />
+      <Hero settings={settings} />
 
       {/* Services */}
-      <section className="py-16 lg:py-24">
+      <section className="bg-white py-14 lg:py-20">
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading
-              eyebrow="How we can help"
+              eyebrow="Our services"
               title="Chiropractic care, matched to what's actually bothering you"
-              description="Every course of care starts with an assessment, so what happens next depends on what we find rather than a fixed programme."
+              description="We offer a range of services designed to help you heal, move better and live pain-free."
             />
-            <ButtonLink href="/services" variant="secondary" icon="arrow-right" iconAfter>
-              See all services
+            <ButtonLink href="/services" variant="secondary" size="sm" icon="arrow-right" iconAfter>
+              View All Services
             </ButtonLink>
           </div>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-9 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {services.slice(0, 6).map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}
@@ -88,93 +80,24 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Conditions */}
-      {conditions.length > 0 ? (
-        <section id="conditions" className="border-y border-shell-200 bg-shell-100 py-16 lg:py-24">
-          <div className="container-page">
-            <SectionHeading
-              eyebrow="Conditions we help with"
-              title="Not sure which service you need?"
-              description="Start with what you're experiencing. Each page explains how we assess it and when it needs a medical opinion instead."
-            />
-
-            <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {conditions.map((condition) => (
-                <ConditionCard key={condition.slug} condition={condition} />
-              ))}
-            </ul>
-          </div>
-        </section>
-      ) : null}
-
-      {/* Why this clinic */}
-      <section className="py-16 lg:py-24">
-        <div className="container-page grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <MediaPanel
-            image={null}
-            ratio="aspect-[4/3]"
-            placeholderLabel="Photo of the clinic or treatment room"
-          />
-
-          <div>
-            <SectionHeading
-              eyebrow={`Why ${settings.clinicName}`}
-              title="A clinic that tells you what it actually thinks"
-              description="We'd rather be straight with you than book you in for a course of care you don't need."
-            />
-
-            <ul className="mt-8 space-y-5">
-              {[
-                {
-                  title: "An assessment before any treatment",
-                  body: "We examine how you move and test what's involved, so care is aimed at something specific.",
-                },
-                {
-                  title: "Plain-language explanations",
-                  body: "You'll leave able to describe your own problem to someone else — including what we're not sure about.",
-                },
-                {
-                  title: "No long pre-paid packages",
-                  body: "We'll estimate how many visits we expect to review things over, and revisit it as we go.",
-                },
-                {
-                  title: "Referral when that's the right answer",
-                  body: "If your symptoms need imaging, a GP or another specialist, we'll say so at the first visit.",
-                },
-              ].map((item) => (
-                <li key={item.title} className="flex gap-3.5">
-                  <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-sage-100 text-sage-700">
-                    <Icon name="check" size={14} />
-                  </span>
-                  <div>
-                    <h3 className="text-base font-semibold">{item.title}</h3>
-                    <p className="mt-1 text-[0.9375rem] leading-relaxed text-ink-600">
-                      {item.body}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
+      <WhoWeHelp conditions={conditions} settings={settings} />
 
       {/* Team */}
       {practitioners.length > 0 ? (
-        <section className="border-t border-shell-200 bg-white py-16 lg:py-24">
+        <section className="bg-white py-14 lg:py-20">
           <div className="container-page">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <SectionHeading
-                eyebrow="Meet the team"
+                eyebrow="Our chiropractors"
                 title="The chiropractors you'll see"
-                description="You can ask to see a specific practitioner when you book, and you're welcome to bring someone with you to any appointment."
+                description="Our experienced team is here to help you feel your best. You can ask for a particular practitioner when you book."
               />
-              <ButtonLink href="/team" variant="secondary" icon="arrow-right" iconAfter>
-                Read full profiles
+              <ButtonLink href="/team" variant="secondary" size="sm" icon="arrow-right" iconAfter>
+                Meet The Team
               </ButtonLink>
             </div>
 
-            <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {practitioners.map((practitioner) => (
                 <PractitionerCard key={practitioner.slug} practitioner={practitioner} />
               ))}
@@ -185,21 +108,27 @@ export default async function HomePage() {
 
       <WhatToExpect steps={settings.whatToExpect} />
 
-      {/* Testimonials */}
+      {/* Reviews */}
       {testimonials.length > 0 ? (
-        <section className="py-16 lg:py-24">
+        <section className="bg-white py-14 lg:py-20">
           <div className="container-page">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <SectionHeading
-                eyebrow="Patient stories"
+                eyebrow="Patient reviews"
                 title="What patients say about coming here"
               />
-              <ButtonLink href="/testimonials" variant="secondary" icon="arrow-right" iconAfter>
-                Read more stories
+              <ButtonLink
+                href="/testimonials"
+                variant="secondary"
+                size="sm"
+                icon="arrow-right"
+                iconAfter
+              >
+                Read More Reviews
               </ButtonLink>
             </div>
 
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-9 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {testimonials.map((testimonial) => (
                 <TestimonialCard key={testimonial.id} testimonial={testimonial} />
               ))}
@@ -210,22 +139,23 @@ export default async function HomePage() {
 
       {/* FAQ */}
       {faqs.length > 0 ? (
-        <section className="border-y border-shell-200 bg-shell-100 py-16 lg:py-24">
-          <div className="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <section className="border-y border-shell-200 bg-shell-100 py-14 lg:py-20">
+          <div className="container-page grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-14">
             <div>
               <SectionHeading
-                eyebrow="Common questions"
+                eyebrow="Questions?"
                 title="Questions people ask before booking"
-                description="If yours isn't here, call the clinic and ask — there's no charge for a quick conversation about whether we can help."
+                description="Find quick answers to the most common questions — or call the clinic and ask."
               />
               <ButtonLink
                 href="/faq"
                 variant="secondary"
+                size="sm"
                 icon="arrow-right"
                 iconAfter
                 className="mt-6"
               >
-                All frequently asked questions
+                See All FAQs
               </ButtonLink>
             </div>
 
@@ -236,33 +166,27 @@ export default async function HomePage() {
 
       {/* Resources */}
       {recentPosts.length > 0 ? (
-        <section className="py-16 lg:py-24">
+        <section className="bg-white py-14 lg:py-20">
           <div className="container-page">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <SectionHeading
                 eyebrow="Resources"
                 title="Practical reading from the clinic"
-                description="Short, useful articles written by the team — not medical advice for your specific situation."
+                description="Tips, guides and helpful information to support your health — general information, not advice for your situation."
               />
-              <Link
-                href="/blog"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-700 hover:underline"
-              >
-                All resources
-                <Icon name="arrow-right" size={16} />
-              </Link>
+              <ButtonLink href="/blog" variant="secondary" size="sm" icon="arrow-right" iconAfter>
+                View All Articles
+              </ButtonLink>
             </div>
 
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-9 grid gap-4 lg:grid-cols-3">
               {recentPosts.map((post) => (
-                <BlogCard key={post.slug} post={post} />
+                <BlogCardWide key={post.slug} post={post} />
               ))}
             </div>
           </div>
         </section>
       ) : null}
-
-      <LocationSection location={location} settings={settings} />
 
       <CTASection settings={settings} />
 

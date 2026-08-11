@@ -107,7 +107,7 @@ export default async function AboutPage() {
           </div>
 
           <MediaPanel
-            image={null}
+            image={settings.photos.about}
             ratio="aspect-[4/3]"
             placeholderLabel="Photo of the clinic reception or treatment room"
           />
@@ -128,7 +128,7 @@ export default async function AboutPage() {
                 key={principle.title}
                 className="rounded-card border border-shell-200 bg-white p-6"
               >
-                <span className="flex size-10 items-center justify-center rounded-full bg-brand-50 text-brand-700">
+                <span aria-hidden className="icon-tile size-10 rounded-full">
                   <Icon name={principle.icon} size={19} />
                 </span>
                 <h3 className="mt-4 text-lg">{principle.title}</h3>

@@ -8,6 +8,7 @@ import type { Service } from "./types";
 export const services: Service[] = [
   {
     slug: "chiropractic-adjustments",
+    icon: "spine",
     title: "Chiropractic adjustments",
     shortDescription:
       "Hands-on joint adjustment to help stiff, restricted areas of the spine move more freely.",
@@ -27,7 +28,12 @@ export const services: Service[] = [
       "A neck that feels locked or restricted turning one way",
       "Aches that settle when you move and return when you sit still",
     ],
-    featuredImage: null,
+    featuredImage: {
+      src: "/images/services/adjustments.jpg",
+      alt: "A chiropractor applying a hands-on adjustment to a patient lying on a treatment table",
+      width: 1400,
+      height: 1050,
+    },
     relatedConditions: ["back-pain", "neck-pain"],
     sortOrder: 1,
     status: "published",
@@ -37,6 +43,7 @@ export const services: Service[] = [
   },
   {
     slug: "back-pain-care",
+    icon: "back",
     title: "Back pain care",
     shortDescription:
       "Assessment and hands-on care for low back and mid-back pain, from recent strains to long-running aches.",
@@ -56,7 +63,12 @@ export const services: Service[] = [
       "A dull mid-back ache that worsens by the end of a desk day",
       "Recurring back pain that keeps coming back every few months",
     ],
-    featuredImage: null,
+    featuredImage: {
+      src: "/images/services/back-pain.jpg",
+      alt: "A clinician working with both hands on a patient's mid-back during treatment",
+      width: 1400,
+      height: 1050,
+    },
     relatedConditions: ["back-pain", "sciatica"],
     sortOrder: 2,
     status: "published",
@@ -66,6 +78,7 @@ export const services: Service[] = [
   },
   {
     slug: "neck-pain-care",
+    icon: "neck",
     title: "Neck pain care",
     shortDescription:
       "Care for stiff, painful necks — including the kind that builds up over a week at a desk.",
@@ -85,7 +98,12 @@ export const services: Service[] = [
       "Aching between the shoulder blades by mid-afternoon",
       "Neck tightness that builds through a working week",
     ],
-    featuredImage: null,
+    featuredImage: {
+      src: "/images/services/neck-pain.jpg",
+      alt: "A clinician's hands supporting a seated patient's neck and shoulders during an assessment",
+      width: 1400,
+      height: 1050,
+    },
     relatedConditions: ["neck-pain", "headaches", "posture-strain"],
     sortOrder: 3,
     status: "published",
@@ -95,6 +113,7 @@ export const services: Service[] = [
   },
   {
     slug: "sports-injury-care",
+    icon: "activity",
     title: "Sports injury care",
     shortDescription:
       "Support for training niggles and recovery from strains, sprains and overuse injuries.",
@@ -114,7 +133,12 @@ export const services: Service[] = [
       "Shoulder pain that shows up on overhead lifts",
       "A joint that's been niggling since a match or a heavy session",
     ],
-    featuredImage: null,
+    featuredImage: {
+      src: "/images/services/sports-injury.jpg",
+      alt: "A therapist guiding a patient's leg through a stretch in a bright clinic room",
+      width: 1400,
+      height: 1050,
+    },
     relatedConditions: ["sports-injuries", "back-pain"],
     sortOrder: 4,
     status: "published",
@@ -124,6 +148,7 @@ export const services: Service[] = [
   },
   {
     slug: "posture-and-desk-support",
+    icon: "posture",
     title: "Posture and desk support",
     shortDescription:
       "Practical help for people whose neck, shoulders or back complain after a day at a desk.",
@@ -143,7 +168,12 @@ export const services: Service[] = [
       "Low back stiffness when you stand up from your chair",
       "Working from a laptop at a kitchen table",
     ],
-    featuredImage: null,
+    featuredImage: {
+      src: "/images/services/posture.jpg",
+      alt: "A therapist watching a patient bend forward to assess how their spine moves",
+      width: 1400,
+      height: 1050,
+    },
     relatedConditions: ["posture-strain", "neck-pain"],
     sortOrder: 5,
     status: "published",
@@ -153,6 +183,7 @@ export const services: Service[] = [
   },
   {
     slug: "headache-related-care",
+    icon: "headache",
     title: "Headache-related care",
     shortDescription:
       "Care for headaches that come from the neck, and honest advice when they don't.",
@@ -172,7 +203,12 @@ export const services: Service[] = [
       "Head pain that arrives alongside a stiff neck",
       "Tension-type headaches after long desk days",
     ],
-    featuredImage: null,
+    featuredImage: {
+      src: "/images/services/headache.jpg",
+      alt: "A clinician treating the muscles at the base of a patient's skull",
+      width: 1400,
+      height: 1050,
+    },
     relatedConditions: ["headaches", "neck-pain"],
     sortOrder: 6,
     status: "published",
@@ -182,6 +218,7 @@ export const services: Service[] = [
   },
   {
     slug: "wellness-and-maintenance-care",
+    icon: "heart",
     title: "Wellness and maintenance care",
     shortDescription:
       "Occasional check-ins for people who'd rather stay on top of a recurring problem.",
@@ -201,7 +238,12 @@ export const services: Service[] = [
       "Physically demanding work that keeps aggravating an old injury",
       "Wanting to keep on top of things between busier seasons",
     ],
-    featuredImage: null,
+    featuredImage: {
+      src: "/images/services/wellness.jpg",
+      alt: "A therapist supporting a patient's arm through an overhead shoulder stretch",
+      width: 1400,
+      height: 1050,
+    },
     relatedConditions: ["posture-strain", "back-pain"],
     sortOrder: 7,
     status: "published",

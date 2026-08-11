@@ -21,7 +21,7 @@ before deploying — canonical URLs, Open Graph tags and the sitemap all derive 
 
 | Route | Notes |
 | --- | --- |
-| `/` | Hero → trust → services → conditions → why us → team → what to expect → testimonials → FAQ → resources → location → CTA |
+| `/` | Hero → services → who we help → team → how it works → reviews → FAQ → resources → closing CTA (follows the approved design) |
 | `/about` | How the clinic works, principles, team, location |
 | `/services`, `/services/[slug]` | Service pages with an inline appointment form preset to that service |
 | `/conditions`, `/conditions/[slug]` | Symptom-first entry points, cross-linked to services |
@@ -41,7 +41,7 @@ to match the CMS tables this site is meant to read from later:
 
 | File | What it holds |
 | --- | --- |
-| `site.ts` | Clinic name, phone, email, CTA labels, trust points, what-to-expect steps, SEO defaults, form consent text |
+| `site.ts` | Clinic name, logo tagline, phone, email, CTA labels, hero copy and badge, new-patient offer card, why-choose-us list, trust points, first-visit steps, SEO defaults, form consent text |
 | `locations.ts` | Address, map links, opening hours |
 | `services.ts` | Service pages |
 | `conditions.ts` | Condition pages |
@@ -67,15 +67,34 @@ listings, direct URLs and the sitemap.
 - `testimonials.ts` — **example copy, not real reviews.** Replace with consented patient
   reviews or empty the array; every testimonial section handles the empty state.
 - `faqs.ts` — prices, insurers and appointment lengths are placeholders.
+- `site.ts` → `newPatientOffer` — **the "$49 New Patient Special" in the hero is an
+  invented price.** Replace it with the clinic's real offer or set it to `null` to
+  remove the card. Advertised health pricing is regulated in many places.
+- `site.ts` → `trustPoints` — the four hero reassurances came from the design and are
+  generic marketing labels; confirm each one is true of the practice.
 - `/privacy` — template covering the web forms only; needs a real notice.
 - Photography — see `public/images/README.md`.
 
 ## Images
 
-Image fields are `null` by default and render a neutral placeholder panel rather than
-stock photography, so layouts look finished before a shoot. Drop real files into
-`public/images/…` and set the field to `{ src, alt, width, height }`. Practitioners
-without a photo show their initials.
+Every photo on the site — homepage hero and "who we help" panel, all seven service pages,
+all six condition pages, the About and Team pages, and all four articles (21 files) — is a
+**Pexels stock photo**, licensed for commercial use and served from `public/images/`
+(nothing hotlinks). Every file, photographer and source URL is listed in
+[`public/images/CREDITS.md`](public/images/CREDITS.md).
+
+These are photos of other people's clinics and patients — legal to use, but not this
+practice. Replace them with real photography of the premises and team before launch.
+Team cards use initials rather than portraits on purpose: never present a stock model as
+a named member of staff, and never publish a patient photo without written consent.
+
+Any image field can be set back to `null`, which renders a neutral placeholder panel
+instead — so layouts stay intact while you wait for a photoshoot. To add a file, drop it
+into `public/images/…` and set the field to `{ src, alt, width, height }` using the
+file's intrinsic pixel dimensions.
+
+Don't source images from Google Images: it's a search index, not a licence, and nearly
+everything in it belongs to a stock agency, a photographer or another clinic.
 
 ## The lead form
 
@@ -109,8 +128,11 @@ credentials in server-only env vars (never `NEXT_PUBLIC_*`).
 
 ## Design and accessibility notes
 
-- Light theme only: warm off-white grounds, one blue-teal for actions, muted sage for
-  support. Tokens are defined in `@theme` in `src/app/globals.css`.
+- Light theme only, per the approved design: white grounds with pale blue tinted
+  bands, deep navy (`brand-800`/`brand-900`) for solid actions, the CTA band and the
+  footer, medium blue (`brand-600`) for links and section eyebrows, gold reserved for
+  review stars. Tokens are defined in `@theme` in `src/app/globals.css`.
+- Serif is for section headings and page titles; card, step and FAQ titles are sans.
 - Fonts via `next/font` (Inter + Source Serif 4), self-hosted at build time.
 - Server Components throughout; the only client components are the mobile nav, the
   active nav link, the sticky mobile CTA and the lead form.

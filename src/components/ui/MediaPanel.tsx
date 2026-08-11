@@ -14,6 +14,8 @@ interface MediaPanelProps {
   priority?: boolean;
   sizes?: string;
   rounded?: string;
+  /** Border around the placeholder. Off when the panel is flush inside a card. */
+  bordered?: boolean;
 }
 
 /**
@@ -29,6 +31,7 @@ export function MediaPanel({
   priority = false,
   sizes = "(min-width: 1024px) 50vw, 100vw",
   rounded = "rounded-card",
+  bordered = true,
 }: MediaPanelProps) {
   if (image) {
     return (
@@ -48,7 +51,8 @@ export function MediaPanel({
   return (
     <div
       className={cn(
-        "relative flex items-center justify-center overflow-hidden border border-shell-300 bg-shell-100",
+        "relative flex items-center justify-center overflow-hidden bg-shell-100",
+        bordered && "border border-shell-200",
         ratio,
         rounded,
         className,
@@ -59,7 +63,7 @@ export function MediaPanel({
         className="absolute inset-0 opacity-[0.5]"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 22% 28%, var(--color-brand-100) 0, transparent 42%), radial-gradient(circle at 78% 72%, var(--color-sage-100) 0, transparent 45%)",
+            "radial-gradient(circle at 22% 28%, var(--color-brand-100) 0, transparent 42%), radial-gradient(circle at 78% 72%, var(--color-accent-100) 0, transparent 45%)",
         }}
       />
       <div className="relative flex flex-col items-center gap-2 px-6 text-center">

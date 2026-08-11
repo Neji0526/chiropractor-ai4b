@@ -14,10 +14,10 @@ export function PageHeader({
   children?: ReactNode;
 }) {
   return (
-    <div className="border-b border-shell-200 bg-white">
+    <div className="border-b border-shell-200 bg-shell-100">
       <div className="container-page py-12 lg:py-16">
         {eyebrow ? (
-          <p className="mb-3 text-xs font-semibold tracking-[0.14em] text-brand-600 uppercase">
+          <p className="eyebrow mb-3">
             {eyebrow}
           </p>
         ) : null}

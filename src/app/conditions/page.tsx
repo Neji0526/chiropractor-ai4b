@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CTASection } from "@/components/CTASection";
 import { PageHeader } from "@/components/PageHeader";
-import { ConditionCard } from "@/components/cards";
+import { ConditionPhotoCard } from "@/components/cards";
 import { Icon } from "@/components/ui/Icon";
 import { getConditions, getSiteSettings } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
@@ -39,7 +39,7 @@ export default async function ConditionsPage() {
         <div className="container-page">
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {conditions.map((condition) => (
-              <ConditionCard key={condition.slug} condition={condition} />
+              <ConditionPhotoCard key={condition.slug} condition={condition} />
             ))}
           </ul>
 

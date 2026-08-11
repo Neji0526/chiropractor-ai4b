@@ -89,10 +89,10 @@ export default async function ContactPage() {
               key={card.heading}
               className="rounded-card border border-shell-200 bg-white p-6 shadow-card"
             >
-              <span className="flex size-10 items-center justify-center rounded-full bg-brand-50 text-brand-700">
+              <span aria-hidden className="icon-tile size-10 rounded-full">
                 <Icon name={card.icon} size={19} />
               </span>
-              <h2 className="mt-4 text-sm font-semibold tracking-wide text-ink-900 uppercase">
+              <h2 className="mt-4 font-sans text-sm font-semibold tracking-wide text-ink-900 uppercase">
                 {card.heading}
               </h2>
               {/* `wrap-anywhere` (not `break-words`) so a long email address also

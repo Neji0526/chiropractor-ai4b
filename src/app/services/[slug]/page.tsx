@@ -115,7 +115,7 @@ export default async function ServicePage({ params }: PageProps) {
 
             {service.goodFitFor.length > 0 ? (
               <div className="mt-9 rounded-card border border-shell-200 bg-shell-50 p-5">
-                <h2 className="text-sm font-semibold text-ink-900">
+                <h2 className="font-sans text-sm font-semibold text-ink-900">
                   People often book this when they have
                 </h2>
                 <ul className="mt-3 space-y-2">
@@ -124,7 +124,7 @@ export default async function ServicePage({ params }: PageProps) {
                       <Icon
                         name="check"
                         size={16}
-                        className="mt-1 shrink-0 text-sage-600"
+                        className="mt-1 shrink-0 text-accent-600"
                       />
                       {item}
                     </li>
@@ -157,7 +157,7 @@ export default async function ServicePage({ params }: PageProps) {
           <aside className="space-y-6">
             {service.benefits.length > 0 ? (
               <div className="rounded-card border border-shell-200 bg-white p-6 shadow-card">
-                <h2 className="text-base font-semibold">What this involves</h2>
+                <h2 className="font-sans text-base font-semibold">What this involves</h2>
                 <ul className="mt-4 space-y-3">
                   {service.benefits.map((benefit) => (
                     <li key={benefit} className="flex gap-2.5 text-sm leading-relaxed text-ink-600">
@@ -171,7 +171,7 @@ export default async function ServicePage({ params }: PageProps) {
 
             {relatedConditions.length > 0 ? (
               <div className="rounded-card border border-shell-200 bg-shell-50 p-6">
-                <h2 className="text-base font-semibold">Related conditions</h2>
+                <h2 className="font-sans text-base font-semibold">Related conditions</h2>
                 <ul className="mt-3 space-y-2">
                   {relatedConditions.map((condition) => (
                     <li key={condition.slug}>
@@ -189,7 +189,7 @@ export default async function ServicePage({ params }: PageProps) {
             ) : null}
 
             <div className="rounded-card border border-shell-200 bg-white p-6">
-              <h2 className="text-base font-semibold">Visiting the clinic</h2>
+              <h2 className="font-sans text-base font-semibold">Visiting the clinic</h2>
               <p className="mt-2 text-sm leading-relaxed text-ink-600">
                 {location.addressLine1}
                 {location.addressLine2 ? `, ${location.addressLine2}` : ""},{" "}

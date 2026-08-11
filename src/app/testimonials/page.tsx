@@ -41,7 +41,7 @@ export default async function TestimonialsPage() {
           {testimonials.length === 0 ? (
             /* Empty state — reached when the clinic hasn't published any reviews yet. */
             <div className="mx-auto max-w-xl rounded-card border border-shell-200 bg-white p-8 text-center shadow-card">
-              <span className="mx-auto flex size-11 items-center justify-center rounded-full bg-brand-50 text-brand-700">
+              <span aria-hidden className="icon-tile mx-auto size-11 rounded-full">
                 <Icon name="quote" size={20} />
               </span>
               <h2 className="mt-4 text-xl">We&apos;re collecting reviews</h2>

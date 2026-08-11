@@ -1,7 +1,6 @@
 import type { SiteSettings } from "@/content/types";
+import { LogoMark } from "@/components/Logo";
 import { ButtonLink } from "@/components/ui/Button";
-import { Icon } from "@/components/ui/Icon";
-import { cn } from "@/lib/cn";
 
 /**
  * Closing call to action. Used at the foot of most pages, with copy tailored to
@@ -10,64 +9,49 @@ import { cn } from "@/lib/cn";
 export function CTASection({
   settings,
   title = "Ready to get it looked at?",
-  description = "Send an appointment request and we'll come back to you with a time. If you'd rather talk it through first, call the clinic — we're happy to tell you whether we're the right people to see.",
-  variant = "brand",
+  description = "You don't have to live with pain. We're here to help you move better, feel better and get back to what matters most.",
 }: {
   settings: SiteSettings;
   title?: string;
   description?: string;
-  variant?: "brand" | "light";
 }) {
-  const onDark = variant === "brand";
-
   return (
-    <section
-      aria-labelledby="final-cta-heading"
-      className={onDark ? "bg-brand-800" : "border-y border-shell-200 bg-white"}
-    >
-      <div className="container-page py-14 lg:py-16">
-        <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between">
-          <div className="max-w-2xl">
-            <h2
-              id="final-cta-heading"
-              className={onDark ? "text-2xl text-white sm:text-3xl" : "text-2xl sm:text-3xl"}
-            >
+    <section aria-labelledby="final-cta-heading" className="relative overflow-hidden bg-brand-800">
+      {/* Watermark of the clinic mark, echoing the design. */}
+      <LogoMark
+        className="pointer-events-none absolute top-1/2 left-6 hidden size-32 -translate-y-1/2 text-white/[0.09] lg:block"
+        strokeWidth={0.9}
+      />
+
+      <div className="container-page relative py-12 lg:py-14">
+        <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between lg:pl-36">
+          <div className="max-w-xl">
+            <h2 id="final-cta-heading" className="text-2xl text-white sm:text-[1.75rem]">
               {title}
             </h2>
-            <p
-              className={
-                onDark
-                  ? "mt-3 text-[1.0625rem] leading-relaxed text-brand-100"
-                  : "mt-3 text-[1.0625rem] leading-relaxed text-ink-600"
-              }
-            >
-              {description}
-            </p>
+            <p className="mt-3 leading-relaxed text-brand-100">{description}</p>
           </div>
 
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
             <ButtonLink
               href="/request-appointment"
-              size="lg"
+              size="md"
               icon="calendar"
-              variant={onDark ? "secondary" : "primary"}
-              className={cn("whitespace-nowrap", onDark && "border-transparent")}
+              variant="onDarkSolid"
+              className="whitespace-nowrap"
             >
               {settings.primaryCtaLabel}
             </ButtonLink>
 
-            <a
+            <ButtonLink
               href={`tel:${settings.phoneHref}`}
-              className={cn(
-                "inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-base font-medium whitespace-nowrap transition-colors",
-                onDark
-                  ? "border-white/40 text-white hover:bg-white/10"
-                  : "border-brand-200 text-brand-700 hover:bg-brand-50",
-              )}
+              size="md"
+              icon="phone"
+              variant="onDark"
+              className="whitespace-nowrap"
             >
-              <Icon name="phone" size={18} />
-              {settings.phone}
-            </a>
+              {settings.secondaryCtaLabel}
+            </ButtonLink>
           </div>
         </div>
       </div>

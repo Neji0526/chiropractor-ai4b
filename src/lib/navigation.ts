@@ -3,43 +3,45 @@ export interface NavItem {
   label: string;
 }
 
-/** Main navigation, used by the header and the mobile drawer. */
+/**
+ * Main navigation, used by the header and the mobile drawer.
+ *
+ * Labels follow the approved design. "Our Team" stands in for the design's "New
+ * Patients" item, since the team page exists and a new-patients page doesn't —
+ * what a new patient needs to know lives on /faq and the homepage's "what
+ * happens at your first visit" section, both linked from the footer.
+ */
 export const primaryNav: NavItem[] = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
   { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
-  { href: "/team", label: "Our team" },
-  { href: "/testimonials", label: "Patient stories" },
-  { href: "/faq", label: "FAQs" },
+  { href: "/conditions", label: "Conditions" },
+  { href: "/team", label: "Our Team" },
   { href: "/blog", label: "Resources" },
   { href: "/contact", label: "Contact" },
 ];
 
 export const footerNav: { heading: string; items: NavItem[] }[] = [
   {
-    heading: "Care",
+    heading: "Quick Links",
     items: [
-      { href: "/services", label: "All services" },
-      { href: "/services/back-pain-care", label: "Back pain care" },
-      { href: "/services/neck-pain-care", label: "Neck pain care" },
-      { href: "/services/sports-injury-care", label: "Sports injury care" },
-      { href: "/services/posture-and-desk-support", label: "Posture support" },
-    ],
-  },
-  {
-    heading: "The clinic",
-    items: [
-      { href: "/about", label: "About us" },
-      { href: "/team", label: "Our team" },
-      { href: "/testimonials", label: "Patient stories" },
+      { href: "/", label: "Home" },
+      { href: "/about", label: "About Us" },
+      { href: "/team", label: "Our Team" },
+      { href: "/testimonials", label: "Patient Stories" },
+      { href: "/faq", label: "FAQs" },
       { href: "/blog", label: "Resources" },
     ],
   },
   {
-    heading: "Visiting",
+    heading: "Services",
     items: [
-      { href: "/request-appointment", label: "Request an appointment" },
-      { href: "/contact", label: "Contact and directions" },
-      { href: "/faq", label: "Common questions" },
+      { href: "/services/back-pain-care", label: "Back Pain Care" },
+      { href: "/services/neck-pain-care", label: "Neck Pain Care" },
+      { href: "/services/sports-injury-care", label: "Sports Injury Care" },
+      { href: "/services/headache-related-care", label: "Headaches & Migraines" },
+      { href: "/services/posture-and-desk-support", label: "Posture Support" },
+      { href: "/services", label: "All Services" },
     ],
   },
 ];

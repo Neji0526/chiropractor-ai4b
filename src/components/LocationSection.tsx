@@ -22,7 +22,7 @@ export function LocationSection({
   heading?: string;
 }) {
   return (
-    <section id="location" className="border-t border-shell-200 bg-white py-16 lg:py-20">
+    <section id="location" className="border-t border-shell-200 bg-white py-14 lg:py-20">
       <div className="container-page">
         <SectionHeading
           eyebrow="Visit the clinic"
@@ -33,7 +33,7 @@ export function LocationSection({
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
           <div className="space-y-8">
             <div>
-              <h3 className="text-base font-semibold">Address</h3>
+              <h3 className="font-sans text-base font-semibold">Address</h3>
               <address className="mt-2 text-[0.9375rem] leading-relaxed text-ink-600 not-italic">
                 {formatAddress(location)}
               </address>
@@ -59,7 +59,7 @@ export function LocationSection({
             </div>
 
             <div>
-              <h3 className="text-base font-semibold">Get in touch</h3>
+              <h3 className="font-sans text-base font-semibold">Get in touch</h3>
               <div className="mt-2 space-y-2 text-[0.9375rem]">
                 <a
                   href={`tel:${settings.phoneHref}`}
@@ -79,7 +79,7 @@ export function LocationSection({
             </div>
 
             <div id="hours" className="scroll-mt-28">
-              <h3 className="text-base font-semibold">Opening hours</h3>
+              <h3 className="font-sans text-base font-semibold">Opening hours</h3>
               <BusinessHours hours={location.hours} className="mt-2 max-w-sm" />
             </div>
           </div>

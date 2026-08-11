@@ -3,7 +3,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CTASection } from "@/components/CTASection";
 import { PageHeader } from "@/components/PageHeader";
 import { WhatToExpect } from "@/components/WhatToExpect";
-import { ConditionCard, ServiceCard } from "@/components/cards";
+import { ConditionCard, ServicePhotoCard } from "@/components/cards";
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/Section";
 import { getConditions, getServices, getSiteSettings } from "@/lib/content";
@@ -55,7 +55,7 @@ export default async function ServicesPage() {
         <div className="container-page">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
-              <ServiceCard key={service.slug} service={service} />
+              <ServicePhotoCard key={service.slug} service={service} />
             ))}
           </div>
         </div>

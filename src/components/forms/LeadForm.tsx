@@ -109,11 +109,11 @@ export function LeadForm({
         ref={successRef}
         tabIndex={-1}
         className={cn(
-          "rounded-card border border-sage-200 bg-sage-50 p-6 sm:p-8",
+          "rounded-card border border-accent-200 bg-accent-50 p-6 sm:p-8",
           className,
         )}
       >
-        <span className="flex size-11 items-center justify-center rounded-full bg-sage-500 text-white">
+        <span className="flex size-11 items-center justify-center rounded-full bg-accent-600 text-white">
           <Icon name="check" size={22} />
         </span>
         <h3 className="mt-4 text-xl">{state.message}</h3>

@@ -3,52 +3,69 @@
 /*
  * Design tokens.
  *
- * Light theme only, by design: warm off-white grounds, a restrained blue-teal
- * for actions and a muted sage for supporting accents. No dark mode, no neon,
- * no gradient washes — the brief is a real local clinic, not a SaaS product.
+ * Four scales, each with one job — a smaller, more deliberate palette than a
+ * per-component grab bag:
+ *
+ *   shell  page grounds, tinted bands and borders (cool neutral)
+ *   ink    body copy and headings
+ *   brand  navy/blue: 600 for links and eyebrows, 800 for solid actions,
+ *          900 for the footer
+ *   accent muted teal, used only to affirm — check marks, confirmation, success
+ *
+ * Plus gold, reserved exclusively for review stars. Every foreground/background
+ * pair used in the UI meets WCAG AA; see `npm run contrast` notes in README.
  */
 @theme {
-  /* Warm neutrals — page grounds, cards and borders */
-  --color-shell-50: #fdfcfa;
-  --color-shell-100: #f7f5f1;
-  --color-shell-200: #efece6;
-  --color-shell-300: #e2ded6;
-  --color-shell-400: #c9c4b9;
+  /* Cool neutrals. 200 is deliberately deep enough that a white card reads as a
+     card on a white page — the previous value was near-invisible. */
+  --color-shell-50: #ffffff;
+  --color-shell-100: #f3f7fb;
+  --color-shell-200: #dde8f2;
+  --color-shell-300: #c6d7e6;
+  --color-shell-400: #9db3c6;
 
-  /* Ink — body copy and headings */
-  --color-ink-500: #6b7280;
-  --color-ink-600: #4b5563;
-  --color-ink-700: #3b4451;
-  --color-ink-800: #2b333d;
-  --color-ink-900: #1d242c;
+  /* Ink — 600 is the body-copy default and sits at ~7:1 on white. */
+  --color-ink-500: #64788a;
+  --color-ink-600: #47596b;
+  --color-ink-700: #33465a;
+  --color-ink-800: #1e3346;
+  --color-ink-900: #0e2233;
 
-  /* Brand blue-teal — primary actions and links */
-  --color-brand-50: #eff7f9;
-  --color-brand-100: #d7ecf0;
-  --color-brand-200: #b2d9e1;
-  --color-brand-300: #82bfcc;
-  --color-brand-400: #4c9fb1;
-  --color-brand-500: #2f8296;
-  --color-brand-600: #26697c;
-  --color-brand-700: #215666;
-  --color-brand-800: #1e4855;
-  --color-brand-900: #1b3c47;
+  /* Brand navy/blue. Deeper and a touch more saturated than before, so solid
+     buttons and the footer read as considered rather than washed. */
+  --color-brand-50: #eff5fb;
+  --color-brand-100: #d8e8f5;
+  --color-brand-200: #b4d1ea;
+  --color-brand-300: #82b1d8;
+  --color-brand-400: #4a89bd;
+  --color-brand-500: #2a6a9e;
+  --color-brand-600: #1d5480;
+  --color-brand-700: #164164;
+  --color-brand-800: #0f3352;
+  --color-brand-900: #08203a;
 
-  /* Sage — quiet supporting accent, never the primary CTA */
-  --color-sage-50: #f2f7f3;
-  --color-sage-100: #e0ebe2;
-  --color-sage-200: #c3d8c8;
-  --color-sage-500: #5f8c6c;
-  --color-sage-600: #4d7358;
-  --color-sage-700: #3f5e48;
+  /* Accent teal — affirmation only. Keeps blue as the single "interactive"
+     colour, so a check mark can never be mistaken for a link. */
+  --color-accent-50: #edf6f5;
+  --color-accent-100: #d6ebe9;
+  --color-accent-200: #b0dad6;
+  --color-accent-500: #2c8880;
+  --color-accent-600: #226e68;
+  --color-accent-700: #1b574f;
+
+  /* Review stars only. 500 is deliberately a deep amber rather than a bright
+     yellow: a filled star has to clear 3:1 against both white cards and the
+     tinted band to be visible to low-vision readers. */
+  --color-gold-400: #f3bd4a;
+  --color-gold-500: #bd7d0c;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
 
-  --radius-card: 0.875rem;
+  --radius-card: 0.75rem;
 
-  --shadow-card: 0 1px 2px rgb(29 36 44 / 0.04), 0 8px 24px -16px rgb(29 36 44 / 0.18);
-  --shadow-raised: 0 1px 2px rgb(29 36 44 / 0.05), 0 18px 40px -24px rgb(29 36 44 / 0.28);
+  --shadow-card: 0 1px 2px rgb(16 37 56 / 0.04), 0 6px 20px -14px rgb(16 37 56 / 0.16);
+  --shadow-raised: 0 1px 2px rgb(16 37 56 / 0.05), 0 18px 40px -22px rgb(16 37 56 / 0.28);
 }
 
 @layer base {
@@ -120,6 +137,36 @@
   }
 }
 
+/* Small uppercase label that sits above a section heading. */
+@utility eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-brand-600);
+}
+
+/* Rounded tile holding a section or card icon. The tint is brand-100 rather than
+   brand-50 so the tile still reads against a white card. */
+@utility icon-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.625rem;
+  background-color: var(--color-brand-100);
+  color: var(--color-brand-700);
+}
+
+/* Soft top-down tint for the hero band: depth without a visible gradient. */
+@utility hero-wash {
+  background-image: linear-gradient(
+    180deg,
+    var(--color-shell-100) 0%,
+    color-mix(in srgb, var(--color-shell-100) 55%, #ffffff) 62%,
+    #ffffff 100%
+  );
+}
+
 /* Long-form article and CMS copy. Kept as one utility rather than pulling in a
    typography plugin, since only three page types need it. */
 @utility prose-clinic {
@@ -168,7 +215,7 @@
   }
 
   & a {
-    color: var(--color-brand-700);
+    color: var(--color-brand-600);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 2px;
